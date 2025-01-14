@@ -11,3 +11,6 @@ project/project
 
 # misc
 .env
+
+# macOS
+.DS_Store

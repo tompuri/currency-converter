@@ -1,0 +1,6 @@
+addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.6")
+addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.6.4")
+addSbtPlugin("org.scoverage" % "sbt-scoverage" % "2.2.2")
+addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.13.0")
+addSbtPlugin("com.github.sbt" % "sbt-native-packager" % "1.10.4")
+addSbtPlugin("nl.gn0s1s" % "sbt-dotenv" % "3.1.1")
