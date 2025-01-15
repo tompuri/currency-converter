@@ -1,0 +1,16 @@
+services:
+
+  currency-converter-service:
+    image: currency-converter-service:0.1.0-SNAPSHOT
+    environment:
+      - SWOP_API_KEY=your_api_key_here
+      - SWOP_HOST=https://swop.cx/rest
+    ports:
+      - "8080:8080"
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"

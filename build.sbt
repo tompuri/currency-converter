@@ -1,9 +1,11 @@
+import com.typesafe.sbt.packager.Keys.dockerExposedPorts
 import sbt.Keys.*
 
 val tapirVersion = "1.11.12"
 val sttpClientVersion = "3.10.2"
 
 enablePlugins(JavaAppPackaging)
+enablePlugins(DockerPlugin)
 
 lazy val rootProject = (project in file(".")).settings(
   Seq(
@@ -12,7 +14,7 @@ lazy val rootProject = (project in file(".")).settings(
     organization := "com.tompuri",
     scalaVersion := "3.5.2",
     libraryDependencies ++= Seq(
-      "com.softwaremill.sttp.tapir" %% "tapir-netty-server" % tapirVersion,
+      "com.softwaremill.sttp.tapir" %% "tapir-armeria-server" % tapirVersion,
       "com.softwaremill.sttp.tapir" %% "tapir-swagger-ui-bundle" % tapirVersion,
       "com.softwaremill.sttp.tapir" %% "tapir-json-circe" % tapirVersion,
       "com.softwaremill.sttp.tapir" %% "tapir-opentelemetry-metrics" % tapirVersion,
@@ -33,6 +35,8 @@ lazy val rootProject = (project in file(".")).settings(
     Compile / scalacOptions ++= Seq(
       "-Wunused:imports"
     ),
-    semanticdbEnabled := true // for scalafix imports
+    semanticdbEnabled := true, // for scalafix imports
+    dockerBaseImage := "eclipse-temurin:21-jre-ubi9-minimal",
+    dockerExposedPorts := Seq(8080)
   )
 )
