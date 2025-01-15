@@ -1,6 +1,6 @@
 package com.tompuri.currencyconverter
 
-import com.tompuri.currencyconverter.error.models.internal.{DeserializationError, NetworkError}
+import com.tompuri.currencyconverter.error.models.internal.InternalApiError.{DeserializationError, NetworkError}
 import com.tompuri.currencyconverter.models.ConversionResult
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.EitherValues

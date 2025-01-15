@@ -1,9 +1,7 @@
 package com.tompuri.currencyconverter.error.models.external
 
-sealed trait ExternalApiError {
-  def message: String
+enum ExternalApiError(val message: String) {
+  case BadRequest(override val message: String) extends ExternalApiError(message)
+  case Forbidden(override val message: String) extends ExternalApiError(message)
+  case InternalServerError(override val message: String) extends ExternalApiError(message)
 }
-
-case class BadRequest(message: String) extends ExternalApiError
-case class Forbidden(message: String) extends ExternalApiError
-case class InternalServerError(message: String) extends ExternalApiError
