@@ -1,14 +1,13 @@
 package com.tompuri.currencyconverter.http.swop
 
 import com.tompuri.currencyconverter.cache.redis.RedisCache
+import com.tompuri.currencyconverter.error.models.internal.{InternalApiError, NetworkError}
 import io.circe.syntax.*
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.EitherValues
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import sttp.client3.Response
-import sttp.model.StatusCode
 
 import scala.annotation.experimental
 import scala.concurrent.Future
@@ -28,7 +27,7 @@ class SwopHttpClientCacheSpec extends AnyFlatSpec with Matchers with ScalaFuture
     (() => cacheExpiryCalculatorMock.timeToLive()).expects().returns(expectedTtl).once()
 
     val cache = new SwopHttpClientCache(redisMock, cacheExpiryCalculatorMock)
-    val response: SwopResponse[String] = Response(Right("{}"), StatusCode(200), "")
+    val response: Either[InternalApiError, String] = Right("{}")
 
     val result = cache.executeCached(cacheKey)(Future.successful(response)).futureValue
     result shouldBe response
@@ -45,7 +44,7 @@ class SwopHttpClientCacheSpec extends AnyFlatSpec with Matchers with ScalaFuture
     (() => cacheExpiryCalculatorMock.timeToLive()).expects().never()
 
     val cache = new SwopHttpClientCache(redisMock, cacheExpiryCalculatorMock)
-    val response: SwopResponse[String] = Response(Right("{}"), StatusCode(200), "")
+    val response: Either[InternalApiError, String] = Right("{}")
 
     val result = cache.executeCached(cacheKey)(Future.successful(response)).futureValue
     result shouldBe response
@@ -63,7 +62,7 @@ class SwopHttpClientCacheSpec extends AnyFlatSpec with Matchers with ScalaFuture
     (() => cacheExpiryCalculatorMock.timeToLive()).expects().returns(expectedTtl).never()
 
     val cache = new SwopHttpClientCache(redisMock, cacheExpiryCalculatorMock)
-    val response: SwopResponse[String] = Response(Right("{}"), StatusCode(200), "")
+    val response: Either[InternalApiError, String] = Right("{}")
 
     val result = cache.executeCached(cacheKey)(Future.successful(response)).futureValue
     result shouldBe response
@@ -80,7 +79,7 @@ class SwopHttpClientCacheSpec extends AnyFlatSpec with Matchers with ScalaFuture
     (() => cacheExpiryCalculatorMock.timeToLive()).expects().never()
 
     val cache = new SwopHttpClientCache(redisMock, cacheExpiryCalculatorMock)
-    val response: SwopResponse[String] = Response(Right("{}"), StatusCode(400), "")
+    val response: Either[InternalApiError, String] = Left(NetworkError("test"))
 
     val result = cache.executeCached(cacheKey)(Future.successful(response)).futureValue
     result shouldBe response
