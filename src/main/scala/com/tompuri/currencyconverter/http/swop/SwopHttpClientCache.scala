@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
-class SwopHttpClientCache(cache: RedisCache, cacheExpiryCalculator: SwopCacheExpiryCalculator) extends HttpClientCache {
+class SwopHttpClientCache(cache: RedisCache, timeToLiveInSeconds: Long) extends HttpClientCache {
   val logger = LoggerFactory.getLogger(getClass)
 
   def executeCached[T: io.circe.Decoder: io.circe.Encoder](key: String)(
@@ -29,7 +29,7 @@ class SwopHttpClientCache(cache: RedisCache, cacheExpiryCalculator: SwopCacheExp
         f.map { response =>
           response match {
             case Right(response) =>
-              cache.set(key, response.asJson.noSpaces, cacheExpiryCalculator.timeToLive())
+              cache.set(key, response.asJson.noSpaces, timeToLiveInSeconds)
             case _ =>
           }
           response

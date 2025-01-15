@@ -5,7 +5,6 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
 import scala.annotation.experimental
-import scala.concurrent.duration.*
 
 @experimental
 class RedisCacheSpec extends AnyFlatSpec with Matchers with MockFactory {
@@ -30,6 +29,6 @@ class RedisCacheSpec extends AnyFlatSpec with Matchers with MockFactory {
     jedisMock.set.expects(expectedKey, expectedValue, expectedTtl).once()
 
     val cache = new RedisCache(jedisMock)
-    cache.set(expectedKey, expectedValue, expectedTtl.seconds)
+    cache.set(expectedKey, expectedValue, expectedTtl)
   }
 }

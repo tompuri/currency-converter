@@ -2,9 +2,8 @@ package com.tompuri.currencyconverter
 
 import com.linecorp.armeria.server.Server
 import com.tompuri.currencyconverter.cache.redis.{JedisWrapper, RedisCache}
-import com.tompuri.currencyconverter.http.swop.{SwopCacheExpiryCalculator, SwopHttpClient, SwopHttpClientCache}
+import com.tompuri.currencyconverter.http.swop.{SwopHttpClient, SwopHttpClientCache}
 import com.tompuri.currencyconverter.observability.opentelemetry.OpenTelemetryConfig
-import com.tompuri.currencyconverter.time.DefaultTimeProvider
 import io.opentelemetry.api.metrics.{Meter, MeterProvider}
 import org.slf4j.LoggerFactory
 import redis.clients.jedis.JedisPooled
@@ -12,6 +11,7 @@ import sttp.client3.HttpClientFutureBackend
 import sttp.tapir.server.armeria.{ArmeriaFutureServerInterpreter, ArmeriaFutureServerOptions}
 import sttp.tapir.server.metrics.opentelemetry.OpenTelemetryMetrics
 
+import scala.concurrent.duration.{Duration, MINUTES}
 import scala.concurrent.{ExecutionContext, Future}
 
 import ExecutionContext.Implicits.global
@@ -40,12 +40,20 @@ object Main {
 
       val backend = HttpClientFutureBackend()
       val swopHttpClient = new SwopHttpClient(swopApiKey, swopHost, backend)
-      val swopCache =
-        new SwopHttpClientCache(
-          RedisCache(new JedisWrapper(new JedisPooled("localhost", 6379))),
-          new SwopCacheExpiryCalculator(new DefaultTimeProvider())
-        )
+
+      val redisHost = sys.env.getOrElse(EnvironmentVariables.RedisHost, "localhost")
+      val redisPort = sys.env.get(EnvironmentVariables.RedisPort).flatMap(_.toIntOption).getOrElse(6379)
+      val redis = RedisCache(new JedisWrapper(new JedisPooled(redisHost, redisPort)))
+
+      val redisTimeToLive =
+        sys.env
+          .get(EnvironmentVariables.RedisTimeToLiveInSeconds)
+          .flatMap(_.toLongOption)
+          .getOrElse(Duration(5, MINUTES).toSeconds)
+      val swopCache = new SwopHttpClientCache(redis, redisTimeToLive)
+
       val currencyConverterService = new CurrencyConverterService(swopHttpClient, swopCache)
+
       val endpoints = new Endpoints(currencyConverterService)
 
       val port = sys.env.get(EnvironmentVariables.HttpPort).flatMap(_.toIntOption).getOrElse(8080)
