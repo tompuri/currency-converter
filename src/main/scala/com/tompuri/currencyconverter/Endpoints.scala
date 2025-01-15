@@ -60,7 +60,14 @@ class Endpoints(currencyConverterService: CurrencyConverterService) {
     )
   }
 
-  val apiEndpoints: List[ServerEndpoint[Any, Future]] = List(convertEndpointServer)
+  val healthEndpoint = endpoint.get
+    .in("health")
+    .out(stringBody)
+    .description("Health check endpoint")
+
+  val healthEndpointServer: ServerEndpoint[Any, Future] = healthEndpoint.serverLogicSuccess(_ => Future.successful("OK"))
+
+  val apiEndpoints: List[ServerEndpoint[Any, Future]] = List(convertEndpointServer, healthEndpointServer)
 
   val docEndpoints: List[ServerEndpoint[Any, Future]] = SwaggerInterpreter()
     .fromServerEndpoints[Future](apiEndpoints, "exchange-rates-service", "1.0.0")
