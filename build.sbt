@@ -12,7 +12,7 @@ lazy val rootProject = (project in file(".")).settings(
     name := "currency-converter-service",
     version := "0.1.0-SNAPSHOT",
     organization := "com.tompuri",
-    scalaVersion := "3.5.2",
+    scalaVersion := "3.3.4",
     libraryDependencies ++= Seq(
       "com.softwaremill.sttp.tapir" %% "tapir-armeria-server" % tapirVersion,
       "com.softwaremill.sttp.tapir" %% "tapir-swagger-ui-bundle" % tapirVersion,
@@ -28,7 +28,7 @@ lazy val rootProject = (project in file(".")).settings(
       "ch.qos.logback" % "logback-classic" % "1.5.16",
       "com.softwaremill.sttp.tapir" %% "tapir-sttp-stub-server" % tapirVersion % Test,
       "org.scalatest" %% "scalatest" % "3.2.19" % Test,
-      "org.scalamock" %% "scalamock" % "7.0.1" % Test,
+      "org.scalamock" %% "scalamock" % "6.1.1" % Test,
       "com.softwaremill.sttp.client3" %% "circe" % sttpClientVersion % Test
     ),
     coverageExcludedFiles := ".*OpenTelemetryConfig.*,.*Main.*",
