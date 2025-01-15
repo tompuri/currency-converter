@@ -17,7 +17,7 @@ import scala.concurrent.Future
 
 @experimental
 class EndpointsSpec extends AnyFlatSpec with Matchers with EitherValues with MockFactory with ScalaFutures {
-  it should "return conversion result" in {
+  "convert" should "return conversion result" in {
     val currencyConverterServiceMock = mock[CurrencyConverterService]
     currencyConverterServiceMock.convert
       .expects("EUR", "USD", 1)
@@ -35,7 +35,7 @@ class EndpointsSpec extends AnyFlatSpec with Matchers with EitherValues with Moc
     response.body.value shouldBe """{"value":1.2,"quote":1.2,"quoteDate":"2024-01-01"}"""
   }
 
-  it should "retry once on network error" in {
+  "convert" should "retry once on network error" in {
     val currencyConverterServiceMock = stub[CurrencyConverterService]
     currencyConverterServiceMock.convert
       .when(*, *, *)
@@ -52,7 +52,7 @@ class EndpointsSpec extends AnyFlatSpec with Matchers with EitherValues with Moc
     currencyConverterServiceMock.convert.verify("EUR", "USD", 1).twice()
   }
 
-  it should "not retry on deserialization error" in {
+  "convert" should "not retry on deserialization error" in {
     val currencyConverterServiceMock = stub[CurrencyConverterService]
     currencyConverterServiceMock.convert
       .when(*, *, *)
@@ -67,5 +67,17 @@ class EndpointsSpec extends AnyFlatSpec with Matchers with EitherValues with Moc
     basicRequest.get(uri"https://test.com/convert/EUR/USD/1").send(backendStub).futureValue
 
     currencyConverterServiceMock.convert.verify("EUR", "USD", 1).once()
+  }
+
+  "health" should "return 200" in {
+    val endpoints = new Endpoints(stub[CurrencyConverterService])
+
+    val backendStub = TapirStubInterpreter(SttpBackendStub.asynchronousFuture)
+      .whenServerEndpointRunLogic(endpoints.healthEndpointServer)
+      .backend()
+
+    val response = basicRequest.get(uri"https://test.com/health").send(backendStub).futureValue
+
+    response.code shouldBe StatusCode(200)
   }
 }
