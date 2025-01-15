@@ -1,7 +1,6 @@
 package com.tompuri.currencyconverter.time
 
-import java.time.LocalDateTime
-import java.time.ZoneOffset
+import java.time.{LocalDateTime, ZoneOffset}
 
 trait TimeProvider {
   def now(): LocalDateTime

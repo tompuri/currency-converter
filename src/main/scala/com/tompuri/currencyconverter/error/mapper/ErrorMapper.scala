@@ -1,9 +1,8 @@
 package com.tompuri.currencyconverter.error.mapper
 
-import com.tompuri.currencyconverter.error.models.external
-import com.tompuri.currencyconverter.error.models.internal
 import com.tompuri.currencyconverter.error.models.external.{BadRequest, ExternalApiError, Forbidden, InternalServerError}
 import com.tompuri.currencyconverter.error.models.internal.{HttpError, InternalApiError}
+import com.tompuri.currencyconverter.error.models.{external, internal}
 
 object ErrorMapper {
   def toExternal(error: InternalApiError): ExternalApiError = {

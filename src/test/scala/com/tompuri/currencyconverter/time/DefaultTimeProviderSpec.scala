@@ -3,8 +3,7 @@ package com.tompuri.currencyconverter.time
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-import java.time.LocalDateTime
-import java.time.ZoneOffset
+import java.time.{LocalDateTime, ZoneOffset}
 
 class DefaultTimeProviderSpec extends AnyFlatSpec with Matchers {
 

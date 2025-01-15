@@ -5,12 +5,10 @@ import io.circe
 import io.circe.parser.*
 import io.circe.syntax.*
 import org.slf4j.LoggerFactory
-import sttp.client3.Response
-import sttp.client3.ResponseException
+import sttp.client3.{Response, ResponseException}
 
-import scala.concurrent.ExecutionContext
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 class SwopHttpClientCache(cache: RedisCache, cacheExpiryCalculator: SwopCacheExpiryCalculator) extends HttpClientCache {
   val logger = LoggerFactory.getLogger(getClass)

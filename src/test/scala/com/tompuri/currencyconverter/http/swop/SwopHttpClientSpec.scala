@@ -7,9 +7,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import sttp.client3.*
 import sttp.client3.testing.*
-import sttp.model.Header
-import sttp.model.Method
-import sttp.model.StatusCode
+import sttp.model.{Header, Method, StatusCode}
 
 class SwopHttpClientSpec extends AnyFlatSpec with Matchers with ScalaFutures with EitherValues {
 

@@ -1,6 +1,7 @@
 package com.tompuri.currencyconverter.http.swop
 
 import com.tompuri.currencyconverter.time.TimeProvider
+
 import java.time.temporal.ChronoUnit
 import scala.concurrent.duration.Duration
 

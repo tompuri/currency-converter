@@ -1,7 +1,6 @@
 package com.tompuri.currencyconverter.models
 
-import sttp.tapir.Schema.annotations.description
-import sttp.tapir.Schema.annotations.encodedName
+import sttp.tapir.Schema.annotations.{description, encodedName}
 
 @encodedName("Ok")
 case class ConvertResponse(

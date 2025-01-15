@@ -1,24 +1,18 @@
 package com.tompuri.currencyconverter
 
 import com.linecorp.armeria.server.Server
-import com.tompuri.currencyconverter.cache.redis.JedisWrapper
-import com.tompuri.currencyconverter.cache.redis.RedisCache
-import com.tompuri.currencyconverter.http.swop.SwopCacheExpiryCalculator
-import com.tompuri.currencyconverter.http.swop.SwopHttpClient
-import com.tompuri.currencyconverter.http.swop.SwopHttpClientCache
+import com.tompuri.currencyconverter.cache.redis.{JedisWrapper, RedisCache}
+import com.tompuri.currencyconverter.http.swop.{SwopCacheExpiryCalculator, SwopHttpClient, SwopHttpClientCache}
 import com.tompuri.currencyconverter.observability.opentelemetry.OpenTelemetryConfig
 import com.tompuri.currencyconverter.time.DefaultTimeProvider
-import io.opentelemetry.api.metrics.Meter
-import io.opentelemetry.api.metrics.MeterProvider
+import io.opentelemetry.api.metrics.{Meter, MeterProvider}
 import org.slf4j.LoggerFactory
 import redis.clients.jedis.JedisPooled
 import sttp.client3.HttpClientFutureBackend
-import sttp.tapir.server.armeria.ArmeriaFutureServerInterpreter
-import sttp.tapir.server.armeria.ArmeriaFutureServerOptions
+import sttp.tapir.server.armeria.{ArmeriaFutureServerInterpreter, ArmeriaFutureServerOptions}
 import sttp.tapir.server.metrics.opentelemetry.OpenTelemetryMetrics
 
-import scala.concurrent.ExecutionContext
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 import ExecutionContext.Implicits.global
 import EnvironmentVariables.*
