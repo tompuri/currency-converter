@@ -3,8 +3,9 @@ services:
   currency-converter-service:
     image: currency-converter-service:0.1.0-SNAPSHOT
     environment:
-      - SWOP_API_KEY=your_api_key_here
+      - SWOP_API_KEY
       - SWOP_HOST=https://swop.cx/rest
+      - REDIS_HOST=redis
     ports:
       - "8080:8080"
     depends_on:
