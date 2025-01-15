@@ -1,7 +1,8 @@
 package com.tompuri.currencyconverter.http.swop
 
 import com.tompuri.currencyconverter.cache.redis.RedisCache
-import com.tompuri.currencyconverter.error.models.internal.{InternalApiError, NetworkError}
+import com.tompuri.currencyconverter.error.models.internal.InternalApiError
+import com.tompuri.currencyconverter.error.models.internal.InternalApiError.NetworkError
 import io.circe.syntax.*
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.EitherValues

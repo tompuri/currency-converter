@@ -1,7 +1,9 @@
 package com.tompuri.currencyconverter.error.mapper
 
-import com.tompuri.currencyconverter.error.models.external.{BadRequest, ExternalApiError, Forbidden, InternalServerError}
-import com.tompuri.currencyconverter.error.models.internal.{HttpError, InternalApiError}
+import com.tompuri.currencyconverter.error.models.external.ExternalApiError
+import com.tompuri.currencyconverter.error.models.external.ExternalApiError.{BadRequest, Forbidden, InternalServerError}
+import com.tompuri.currencyconverter.error.models.internal.InternalApiError
+import com.tompuri.currencyconverter.error.models.internal.InternalApiError.HttpError
 import com.tompuri.currencyconverter.error.models.{external, internal}
 
 object ErrorMapper {

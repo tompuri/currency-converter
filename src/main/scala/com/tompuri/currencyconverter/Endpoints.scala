@@ -1,8 +1,10 @@
 package com.tompuri.currencyconverter
 
 import com.tompuri.currencyconverter.error.mapper.ErrorMapper
-import com.tompuri.currencyconverter.error.models.external.{BadRequest, ExternalApiError, Forbidden, InternalServerError}
-import com.tompuri.currencyconverter.error.models.internal.{InternalApiError, NetworkError}
+import com.tompuri.currencyconverter.error.models.external.ExternalApiError
+import com.tompuri.currencyconverter.error.models.external.ExternalApiError.{BadRequest, Forbidden, InternalServerError}
+import com.tompuri.currencyconverter.error.models.internal.InternalApiError
+import com.tompuri.currencyconverter.error.models.internal.InternalApiError.NetworkError
 import com.tompuri.currencyconverter.models.{ConversionResult, ConvertResponse}
 import io.circe.generic.auto.*
 import retry.Success

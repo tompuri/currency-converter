@@ -1,6 +1,7 @@
 package com.tompuri.currencyconverter.http.swop
 
-import com.tompuri.currencyconverter.error.models.internal.{DeserializationError, HttpError, InternalApiError, NetworkError}
+import com.tompuri.currencyconverter.error.models.internal.InternalApiError
+import com.tompuri.currencyconverter.error.models.internal.InternalApiError.{DeserializationError, HttpError, NetworkError}
 import com.tompuri.currencyconverter.http.swop.models.response.RatesResponse
 import sttp.client3.circe.*
 import sttp.client3.{Response, SttpBackend, UriContext, basicRequest}

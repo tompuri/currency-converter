@@ -1,7 +1,7 @@
 package com.tompuri.currencyconverter.error.mapper
 
-import com.tompuri.currencyconverter.error.models.external.{BadRequest, Forbidden, InternalServerError}
-import com.tompuri.currencyconverter.error.models.internal.{DeserializationError, HttpError, NetworkError}
+import com.tompuri.currencyconverter.error.models.external.ExternalApiError.{BadRequest, Forbidden, InternalServerError}
+import com.tompuri.currencyconverter.error.models.internal.InternalApiError.{DeserializationError, HttpError, NetworkError}
 import com.tompuri.currencyconverter.error.models.{external, internal}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers

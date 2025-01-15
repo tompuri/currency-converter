@@ -1,6 +1,6 @@
 package com.tompuri.currencyconverter.http.swop
 
-import com.tompuri.currencyconverter.error.models.internal.*
+import com.tompuri.currencyconverter.error.models.internal.InternalApiError.*
 import com.tompuri.currencyconverter.http.swop.models.response.RatesResponse
 import org.scalatest.EitherValues
 import org.scalatest.concurrent.ScalaFutures
