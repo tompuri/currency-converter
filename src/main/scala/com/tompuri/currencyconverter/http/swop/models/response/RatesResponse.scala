@@ -1,7 +1,6 @@
 package com.tompuri.currencyconverter.http.swop.models.response
 
-import io.circe.Decoder
-import io.circe.Encoder
+import io.circe.{Decoder, Encoder}
 
 case class RatesResponse(baseCurrency: String, quoteCurrency: String, quote: Double, date: String)
 

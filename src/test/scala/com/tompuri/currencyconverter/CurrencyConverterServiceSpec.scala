@@ -1,8 +1,8 @@
 package com.tompuri.currencyconverter
 
 import com.tompuri.currencyconverter.error.models.internal.{DeserializationError, HttpError, NetworkError}
-import com.tompuri.currencyconverter.http.swop.{HttpClientCache, SwopHttpClient, SwopResponse}
 import com.tompuri.currencyconverter.http.swop.models.response.RatesResponse
+import com.tompuri.currencyconverter.http.swop.{HttpClientCache, SwopHttpClient, SwopResponse}
 import com.tompuri.currencyconverter.models.ConversionResult
 import io.circe
 import io.circe.DecodingFailure
@@ -11,9 +11,7 @@ import org.scalamock.scalatest.MockFactory
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import sttp.client3.Response
-import sttp.client3.ResponseException
-import sttp.client3.ShowError
+import sttp.client3.{Response, ResponseException, ShowError}
 import sttp.model.StatusCode
 
 import scala.annotation.experimental

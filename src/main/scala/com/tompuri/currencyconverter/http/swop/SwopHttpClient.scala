@@ -1,10 +1,8 @@
 package com.tompuri.currencyconverter.http.swop
 
 import com.tompuri.currencyconverter.http.swop.models.response.RatesResponse
-import sttp.client3.SttpBackend
-import sttp.client3.UriContext
-import sttp.client3.basicRequest
 import sttp.client3.circe.*
+import sttp.client3.{SttpBackend, UriContext, basicRequest}
 
 import scala.concurrent.Future
 
