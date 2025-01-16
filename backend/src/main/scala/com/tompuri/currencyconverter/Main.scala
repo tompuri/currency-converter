@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory
 import redis.clients.jedis.JedisPooled
 import sttp.client3.HttpClientFutureBackend
 import sttp.tapir.server.armeria.{ArmeriaFutureServerInterpreter, ArmeriaFutureServerOptions}
+import sttp.tapir.server.interceptor.cors.CORSInterceptor
 import sttp.tapir.server.metrics.opentelemetry.OpenTelemetryMetrics
 
 import scala.concurrent.duration.{Duration, MINUTES}
@@ -65,6 +66,7 @@ object Main {
 
       val serverOptions = ArmeriaFutureServerOptions.customiseInterceptors
         .metricsInterceptor(metricsInterceptor)
+        .corsInterceptor(CORSInterceptor.default)
         .options
 
       val tapirService = ArmeriaFutureServerInterpreter(serverOptions).toService(endpoints.all)
