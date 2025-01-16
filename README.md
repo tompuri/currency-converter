@@ -1,27 +1,56 @@
-## Quick start
+# Currency Converter
 
-If you don't have [sbt](https://www.scala-sbt.org) installed already, you can use the provided wrapper script:
+## About
 
-```shell
-./sbtx -h # shows an usage of a wrapper script
-./sbtx compile # build the project
-./sbtx test # run the tests
-./sbtx run # run the application (Main)
+This project is a straightforward currency converter web application. Enter the source currency, target currency, and amount to perform the conversion. It uses the [SWOP API](https://swop.cx/), requiring an API key to operate.
+
+```mermaid
+graph LR
+    A[Vue Frontend] <-->|HTTP GET| B[Scala Backend]
+    B[Scala Backend] <-->|HTTP GET<br>Headers: API Key| C[SWOP API]
+
 ```
 
-For more details check the [sbtx usage](https://github.com/dwijnand/sbt-extras#sbt--h) page.
+## Essentials
 
-Otherwise, if sbt is already installed, you can use the standard commands:
+Prerequisites:
 
-```shell
-sbt compile # build the project
-sbt test # run the tests
-sbt run # run the application (Main)
+- Docker
+- Sbt 1.10.7 or higher
+
+### Configure the application
+
+Make `.env` file in the root
+
+```
+touch .env
 ```
 
-## Links:
+Add the following environment variables to the `.env` file:
 
-* [tapir documentation](https://tapir.softwaremill.com/en/latest/)
-* [tapir github](https://github.com/softwaremill/tapir)
-* [bootzooka: template microservice using tapir](https://softwaremill.github.io/bootzooka/)
-* [sbtx wrapper](https://github.com/dwijnand/sbt-extras#installation)
+```
+SWOP_API_KEY=your_api_key_here
+SWOP_HOST=https://swop.cx/rest
+```
+
+### Build frontend
+
+```
+docker compose build
+```
+
+### Build backend
+
+```
+cd backend && sbt docker:publishLocal && cd ..
+```
+
+### Run the whole application
+
+```
+docker compose up
+```
+
+Access the frontend at http://localhost:3000/
+
+Swagger docs for the API are found at http://localhost:8080/docs/
