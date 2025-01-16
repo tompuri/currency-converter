@@ -1,5 +1,18 @@
-# misc
+# Global ignores for all projects
+.DS_Store
 .env
 
-# macOS
-.DS_Store
+# IDEs
+.idea/
+.vscode/
+.metals/
+
+# Build tool specific entries
+.bloop
+target/
+metals.sbt
+project/project
+
+# Subproject-specific ignores
+frontend/node_modules/
+backend/target/
