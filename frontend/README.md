@@ -1,29 +1,36 @@
-# currency-converter
+# Currency Converter
 
-This template should help get you started developing with Vue 3 in Vite.
+## Development
 
-## Recommended IDE Setup
+Prerequisites:
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- npm
 
-## Customize configuration
+### Essentials
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+#### Configure the application
 
-## Project Setup
+Make `.env` file in the root
+
+```
+touch .env
+```
+
+Add the following environment variables to the `.env` file:
+
+```
+CURRENCY_CONVERTER_API_HOST=http://localhost
+CURRENCY_CONVERTER_API_PORT=8080
+```
+
+#### Project Setup
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+#### Compile and Hot-Reload for Development
 
 ```sh
 npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
 ```
